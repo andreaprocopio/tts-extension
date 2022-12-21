@@ -5,8 +5,7 @@ document.addEventListener('click', function(event) {
 
 const pageLang = document.documentElement.getAttribute('lang');
 const textToRead = event.target.textContent;
-event.target.style.backgroundColor = "black";
-event.target.style.color = "white";
+event.target.style.backgroundColor = "lightgray";
 let currentReadedElement = event.target;
 
   if (textToRead) {
@@ -16,7 +15,6 @@ let currentReadedElement = event.target;
       currentReadedElement: currentReadedElement
     }, function(response) {
       currentReadedElement.style.backgroundColor = "unset";
-      currentReadedElement.style.color = "unset";
     });
   }
 });

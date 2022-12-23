@@ -1,12 +1,4 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.executeScript({
-    file: 'content.js',
-    allFrames: true
-  });
-});
-
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  
   if (request.textToRead && request.pageLang) {
 
     chrome.tts.speak(request.textToRead, {

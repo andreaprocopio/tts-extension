@@ -1,7 +1,13 @@
 window.addEventListener('DOMContentLoaded', function(){
-  const toggleButton = document.getElementById('toggle-button');
-
-  // let active;
+  const checkboxToggler = document.getElementById('checkbox-toggler');
+  
+  chrome.storage.local.get('checkboxState', function(items){
+    if (items.checkboxState) {
+      checkboxToggler.checked = true;
+    } else {
+      checkboxToggler.checked = false;
+    }
+  })
 
   const sendState = function(state) {
     chrome.tabs.query({}, function(tabs){
@@ -11,23 +17,16 @@ window.addEventListener('DOMContentLoaded', function(){
     })
   }
 
-let state = false;
+  checkboxToggler.addEventListener('change', function() {
 
-  toggleButton.addEventListener('click', function() {
+    const checkedState = checkboxToggler.checked;
 
-    if (!state) {
+    chrome.storage.local.set({'checkboxState': checkboxToggler.checked});
 
-      state = true;
-      toggleButton.textContent = 'Turn Off'; //changing the text
+    if (checkedState) {
       sendState('start');
-
-
     } else {
-
-      state = false;
-      toggleButton.textContent = 'Turn On'; //changing the text
       sendState('stop');
-
     }
   });
 });

@@ -3,7 +3,7 @@
   "name": "TTS Extension development",
   "version": "1.0",
   "description": "Reads the text that you click on.",
-  "permissions": ["activeTab", "tts", "tabs"],
+  "permissions": ["activeTab", "tts", "tabs", "storage"],
   "background": {
     "scripts": ["background.js"]
   },

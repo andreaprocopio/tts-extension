@@ -1,8 +1,8 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.textToRead && request.pageLang) {
+  if (request.textToRead && request.pageLang && request.readingSpeed) {
 
     chrome.tts.speak(request.textToRead, {
-      'rate': 7,
+      'rate': request.readingSpeed,
       'lang': request.pageLang,
       requiredEventTypes: ['end'],
       onEvent: function(event) {

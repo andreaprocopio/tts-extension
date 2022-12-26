@@ -1,11 +1,21 @@
 window.addEventListener('DOMContentLoaded', function(){
   const checkboxToggler = document.getElementById('checkbox-toggler');
+  const speedSelect = document.getElementById('speed-select');
   
   chrome.storage.local.get('checkboxState', function(items){
     if (items.checkboxState) {
       checkboxToggler.checked = true;
+      sendState('start'); //this is needed because initial state is off
     } else {
       checkboxToggler.checked = false;
+    }
+  })
+
+  chrome.storage.local.get('readingSpeed', function(items){
+    if (items.readingSpeed) {
+      speedSelect.value = items.readingSpeed
+    } else {
+      speedSelect.value = 5; //default
     }
   })
 
@@ -29,5 +39,14 @@ window.addEventListener('DOMContentLoaded', function(){
       sendState('stop');
     }
   });
+
+  speedSelect.addEventListener('change', function(){
+
+    const value = speedSelect.value;
+
+    chrome.storage.local.set({'readingSpeed': value});
+
+    sendState(value);
+  })
 });
 

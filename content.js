@@ -1,12 +1,16 @@
 let state = 'off';
+let speed = 5; //default
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if (request == 'start') {
     state = 'on';
-    console.log(state);
+    // console.log(state);
   } else if (request == 'stop') {
     state = 'off';
-    console.log(state);
+    // console.log(state);
+  } else {
+    speed = Number(request);
+    // console.log(`Reading speed set to ${speed}`);
   }
 })
 
@@ -27,7 +31,8 @@ document.addEventListener('click', function(event) {
       chrome.runtime.sendMessage({
         textToRead: textToRead,
         pageLang: pageLang,
-        currentReadedElement: currentReadedElement
+        currentReadedElement: currentReadedElement,
+        readingSpeed: speed
       }, function(response) {
         currentReadedElement.style.backgroundColor = "";
       });

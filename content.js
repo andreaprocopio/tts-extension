@@ -4,13 +4,10 @@ let speed = 5; //default
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if (request == 'start') {
     state = 'on';
-    // console.log(state);
   } else if (request == 'stop') {
     state = 'off';
-    // console.log(state);
   } else {
     speed = Number(request);
-    // console.log(`Reading speed set to ${speed}`);
   }
 })
 
@@ -30,17 +27,6 @@ document.addEventListener('click', function(event) {
     let currentReadedElement = event.target;
     currentReadedElement.style.backgroundColor = "lightgray";
     currentReadedElement.setAttribute("data-current-element", "true");
-
-    // Max Char
-    // const maxChar = 200;
-    // if (textToRead.length > maxChar) {
-    //   // splitting long text into chunks
-    //   const chunks = [];
-    //   let i, j;
-    //   for (i = 0, j = textToRead.length; i < j; i += maxChar) {
-    //       chunks.push(textToRead.slice(i, i + maxChar));
-    //   }
-    // }
 
     // remove the data-current-element attribute from any other element that has it
     let elements = document.querySelectorAll("[data-current-element=true]");

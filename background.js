@@ -1,11 +1,5 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-  chrome.tts.getVoices(function(voices) {
-    console.log(voices);
-  });
-
-  console.log(request.pageLang);
-  
   if (request.textToRead && request.pageLang && request.readingSpeed) {
 
     let voiceName;
@@ -15,11 +9,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       voiceName = 'Google Italiano';
       language = 'it-IT';
     } else {
-      voiceName = 'Google US English';
+      voiceName = 'Microsoft Zira - English (United States)';
       language = 'en-US';
     }
-
-    console.log(voiceName);
 
     // Text to speech the received text
     chrome.tts.speak(request.textToRead, {

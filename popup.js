@@ -1,11 +1,12 @@
 window.addEventListener('DOMContentLoaded', function(){
   const checkboxToggler = document.getElementById('checkbox-toggler');
   const speedSelect = document.getElementById('speed-select');
+  const langSelect = document.getElementById('lang-select');
   
   chrome.storage.local.get('checkboxState', function(items){
     if (items.checkboxState) {
       checkboxToggler.checked = true;
-      sendState('start'); //this is needed because initial state is off
+      sendState('start'); // This is needed because initial state is off
     } else {
       checkboxToggler.checked = false;
     }
@@ -14,10 +15,20 @@ window.addEventListener('DOMContentLoaded', function(){
   chrome.storage.local.get('readingSpeed', function(items){
     if (items.readingSpeed) {
       speedSelect.value = items.readingSpeed
+      sendState(items.readingSpeed);
     } else {
-      speedSelect.value = 5; //default
+      speedSelect.value = 5; // Default
     }
   })
+
+  chrome.storage.local.get('language', function(items){
+    if (items.language) {
+      langSelect.value = items.language;
+      sendState(items.language);
+    } else {
+      langSelect.value = 'en-US'; // Default language is english
+    }
+  });
 
   const sendState = function(state) {
     chrome.tabs.query({}, function(tabs){
@@ -47,6 +58,15 @@ window.addEventListener('DOMContentLoaded', function(){
     chrome.storage.local.set({'readingSpeed': value});
 
     sendState(value);
-  })
+  });
+
+  langSelect.addEventListener('change', function(){
+
+    const value = langSelect.value;
+
+    chrome.storage.local.set({'language': value});
+
+    sendState(value)
+  });
 });
 

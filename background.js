@@ -5,8 +5,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     let voiceName;
     let language;
 
-    if (request.pageLang == 'it') {
-      voiceName = 'Google Italiano';
+    if (request.pageLang == 'it-IT') {
+      voiceName = 'Microsoft Cosimo - Italian (Italy)';
       language = 'it-IT';
     } else {
       voiceName = 'Microsoft Zira - English (United States)';

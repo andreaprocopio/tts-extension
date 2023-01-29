@@ -1,15 +1,20 @@
-let state = 'off';
-let speed = 5; //default
+let state = 'off'; // Default
+let speed = 5; // Default
+let language = 'en-US'; // Default
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   if (request == 'start') {
     state = 'on';
   } else if (request == 'stop') {
     state = 'off';
+  } else if (request == 'it-IT') {
+    language = request;
+  } else if (request == 'en-US') {
+    language = request
   } else {
     speed = Number(request);
   }
-})
+});
 
 document.addEventListener('click', function(event) {
   
@@ -22,7 +27,7 @@ document.addEventListener('click', function(event) {
     }
     
     // Grab the language of the page, the text content of the clicked element and set its background to gray.
-    const pageLang = document.documentElement.getAttribute('lang');
+    // const pageLang = document.documentElement.getAttribute('lang');
     const textToRead = event.target.textContent;
     let currentReadedElement = event.target;
     currentReadedElement.style.backgroundColor = "lightgray";
@@ -41,7 +46,7 @@ document.addEventListener('click', function(event) {
       // Send a message to background.js with the text to read, the speed, the clicked element and the language.
       chrome.runtime.sendMessage({
         textToRead: textToRead,
-        pageLang: pageLang,
+        pageLang: language,
         currentReadedElement: currentReadedElement,
         readingSpeed: speed
       }, function (response){
